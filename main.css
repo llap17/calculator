@@ -1,0 +1,43 @@
+h1,
+h2{
+    text-align: center;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 50%;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    max-height: 1rem;
+    max-width: 70%;
+    padding-top: 35%;
+    padding-left: 20%;
+}
+
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    order: 5;
+}
+
+#input {
+    display: flex;
+}
+
+#input-box {
+    flex: 1;
+    min-height: 5vh;
+}
+
+.btn {
+    flex-basis: 33.333333%;
+    height: 2rem;
+    padding: 2em;
+}
