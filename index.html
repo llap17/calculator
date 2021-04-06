@@ -6,21 +6,30 @@
     <title>Calculator Simulator</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="content">
-        <h1>Calculator Simulator 2021</h1>
-        <h2>DELUXE EDITION</h2>
+
+        <div id="headers">
+            <h1>Calculator Simulator 2021</h1>
+            <h2>DELUXE EDITION</h2>
+        </div>
 
         <div id="calculator">
 
             <div id="input">
-                <input id ="input-box" type="text" readonly>
+                <input id="input-box" type="text" readonly disabled="disabled" />
             </div>
 
             <div id="buttons">
                 <button id="btn1" class="btn">1</button>
-                <button id="btn2" class="btn">2</button>
+                <button id="btn2" id="btn2" class="btn">2</button>
                 <button id="btn3" class="btn">3</button>
                 <button id="btn4" class="btn">4</button>
                 <button id="btn5" class="btn">5</button>
@@ -29,15 +38,18 @@
                 <button id="btn8" class="btn">8</button>
                 <button id="btn9" class="btn">9</button>
                 <button id="btn0" class="btn">0</button>
+                <button id="btn-decimal" class="btn">.</button>
                 <button id="btn-plus" class="btn">+</button>
                 <button id="btn-minus" class="btn">-</button>
                 <button id="btn-divide" class="btn">/</button>
                 <button id="btn-multiply" class="btn">*</button>
-                <button id="btn-equals" class="btn">=</button>
                 <button id="btn-delete" class="btn">AC</button>
+                <button id="btn-backspace" class="btn">C</button>
+                <button id="btn-equals" class="btn">=</button>
             </div>
 
         </div>
+        <p id="notePara">(now with keyboard support!!)</p>
 
     </div>
     <script src='main.js'></script>

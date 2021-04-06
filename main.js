@@ -1,4 +1,4 @@
-//ROOT FUNCTIONS
+//ROOT
 function addFunction(a, b) {
     return a + b;
 }
@@ -33,15 +33,22 @@ function operate(operation, a, b){
     }
 }
 
-function Calculate(a, b) {
-    var a = parseInt(storedValue);
-    var b = parseInt(currentValue);
+function calculate(a, b) {
+    var a = parseFloat(storedValue);
+    var b = parseFloat(currentValue);
+    if (currentOperation == divide && storedValue == 0 ||
+        currentOperation == divide && currentValue == 0) {
+        window.alert("You're trying to divide by 0, silly!")
+        return {a, b};
+    }else{
     c = operate(currentOperation, a, b);
-    storedValue = "0";
+    c = Math.round(c * 100) / 100;
     currentValue = c.toString();
+    storedValue = "";
     displayValue = currentValue;
     inputBox.value = displayValue;
-    return { a, b };
+    return {a, b};
+    }
 }
 
 //CALCULATOR VARIABLES
@@ -61,27 +68,39 @@ var btnDivide = document.getElementById("btn-divide");
 var btnMultiply = document.getElementById("btn-multiply");
 var btnEquals = document.getElementById("btn-equals");
 var btnDelete = document.getElementById("btn-delete");
+var btnBackspace = document.getElementById("btn-backspace");
+var btnDecimal = document.getElementById("btn-decimal");
 var btns = document.querySelectorAll(".btn");
+//var inputBox = document.getElementById("input-box");
 
 var inputBox = document.getElementById("input-box");
-var currentValue = 0;
-var storedValue = 0;
+var currentValue = "";
+var storedValue = "";
 var displayValue = "";
 
 //BUTTONS
+//MOUSE CLICK
 btns.forEach(function(currentBtn) {
-    currentBtn.addEventListener("click", function() {
+    currentBtn.addEventListener("click", function(e) {
+        if(displayValue == "NaN"){
+            currentValue = "";
+            storedValue = ""
+            displayValue = "";
+            inputBox.value = displayValue;
+        }
 
         //NUMBERS
         if (currentBtn == btn1) {
             currentValue += "1";
             displayValue += "1";
             inputBox.value = displayValue;
+            console.log(currentBtn);
         }
         if (currentBtn == btn2) {
             currentValue += "2";
             displayValue += "2";
             inputBox.value = displayValue;
+            console.log(currentBtn);
         }
         if (currentBtn == btn3) {
             currentValue += "3";
@@ -123,16 +142,21 @@ btns.forEach(function(currentBtn) {
             displayValue += "0";
             inputBox.value = displayValue;
         }
+        if (currentBtn == btnDecimal) {
+            currentValue += ".";
+            displayValue += ".";
+            inputBox.value = displayValue;
+        }
 
         //OPERATIONS
         if (currentBtn == btnPlus) {
             if (parseInt(storedValue) < 0 ||
                 parseInt(storedValue) > 0) {
-                    var { a, b } = Calculate(a, b);
+                    var {a, b} = calculate(a, b);
                     currentOperation = add;
             }
             storedValue = currentValue;
-            currentValue = "0";
+            currentValue = "";
             displayValue += " + ";
             currentOperation = add;
             inputBox.value = displayValue;
@@ -140,11 +164,11 @@ btns.forEach(function(currentBtn) {
         if (currentBtn == btnMinus) {
             if (parseInt(storedValue) < 0 ||
                 parseInt(storedValue) > 0) {
-                    var { a, b } = Calculate(a, b);
+                    var {a, b} = calculate(a, b);
                     currentOperation = subtract;
             }
             storedValue = currentValue;
-            currentValue = "0";
+            currentValue = "";
             displayValue += " - ";
             currentOperation = subtract;
             inputBox.value = displayValue;
@@ -152,11 +176,11 @@ btns.forEach(function(currentBtn) {
         if (currentBtn == btnDivide) {
             if (parseInt(storedValue) < 0 ||
                 parseInt(storedValue) > 0) {
-                    var { a, b } = Calculate(a, b);
+                    var {a, b} = calculate(a, b);
                     currentOperation = divide;
             }
             storedValue = currentValue;
-            currentValue = "0";
+            currentValue = "";
             displayValue += " / ";
             currentOperation = divide;
             inputBox.value = displayValue;
@@ -164,24 +188,164 @@ btns.forEach(function(currentBtn) {
         if (currentBtn == btnMultiply) {
             if (parseInt(storedValue) < 0 ||
                 parseInt(storedValue) > 0) {
-                    var { a, b } = Calculate(a, b);
+                    var {a, b} = calculate(a, b);
                     currentOperation = multiply;
             }
             storedValue = currentValue;
-            currentValue = "0";
+            currentValue = "";
             displayValue += " * ";
             currentOperation = multiply;
             inputBox.value = displayValue;
         }
         if (currentBtn == btnEquals) {
-            var { a, b } = Calculate(a, b);
+            var {a, b} = calculate(a, b);
         }
         if (currentBtn == btnDelete) {
-            currentValue = "0";
-            storedValue = "0"
+            currentValue = "";
+            storedValue = ""
             displayValue = "";
+            inputBox.value = displayValue;
+        }
+        if (currentBtn == btnBackspace) {
+            let currentValueArr = Array.from(currentValue);
+            currentValueArr.pop();
+            currentValue = currentValueArr.join("");
+            displayValue = currentValue;
             inputBox.value = displayValue;
         }
     });
 });
 
+//KEYBOARD SUPPORT
+document.addEventListener('keypress', function(e) {
+    if(displayValue == "NaN"){
+        currentValue = "";
+        storedValue = ""
+        displayValue = "";
+        inputBox.value = displayValue;
+    }
+
+    //NUMBERS
+    if (e.key=='1') {
+        currentValue += "1";
+        displayValue += "1";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='2') {
+        currentValue += "2";
+        displayValue += "2";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='3') {
+        currentValue += "3";
+        displayValue += "3";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='4') {
+        currentValue += "4";
+        displayValue += "4";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='5') {
+        currentValue += "5";
+        displayValue += "5";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='6') {
+        currentValue += "6";
+        displayValue += "6";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='7') {
+        currentValue += "7";
+        displayValue += "7";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='8') {
+        currentValue += "8";
+        displayValue += "8";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='9') {
+        currentValue += "9";
+        displayValue += "9";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='0') {
+        currentValue += "0";
+        displayValue += "0";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='.') {
+        currentValue += ".";
+        displayValue += ".";
+        inputBox.value = displayValue;
+    }
+
+    //OPERATIONS
+    if (e.key=='+') {
+        if (parseInt(storedValue) < 0 ||
+            parseInt(storedValue) > 0) {
+                var {a, b} = calculate(a, b);
+                currentOperation = add;
+        }
+        storedValue = currentValue;
+        currentValue = "";
+        displayValue += " + ";
+        currentOperation = add;
+        inputBox.value = displayValue;
+    }
+    if (e.key=='-') {
+        if (parseInt(storedValue) < 0 ||
+            parseInt(storedValue) > 0) {
+                var {a, b} = calculate(a, b);
+                currentOperation = subtract;
+        }
+        storedValue = currentValue;
+        currentValue = "";
+        displayValue += " - ";
+        currentOperation = subtract;
+        inputBox.value = displayValue;
+    }
+    if (e.key=='/') {
+        if (parseInt(storedValue) < 0 ||
+            parseInt(storedValue) > 0) {
+                var {a, b} = calculate(a, b);
+                currentOperation = divide;
+        }
+        storedValue = currentValue;
+        currentValue = "";
+        displayValue += " / ";
+        currentOperation = divide;
+        inputBox.value = displayValue;
+    }
+    if (e.key=='*') {
+        if (parseInt(storedValue) < 0 ||
+            parseInt(storedValue) > 0) {
+                var {a, b} = calculate(a, b);
+                currentOperation = multiply;
+        }
+        storedValue = currentValue;
+        currentValue = "";
+        displayValue += " * ";
+        currentOperation = multiply;
+        inputBox.value = displayValue;
+    }
+    if (e.key=='Enter') {
+        var {a, b} = calculate(a, b); 
+    }
+    if (e.key=='Delete') {
+        currentValue = "";
+        storedValue = ""
+        displayValue = "";
+        inputBox.value = displayValue;
+    }
+    if (e.key=='Backspace') {
+        console.log("test");
+        let currentValueArr = Array.from(currentValue);
+        currentValueArr.pop();
+        currentValue = currentValueArr.join("");
+        displayValue = currentValue;
+        inputBox.value = displayValue;
+    }
+});
